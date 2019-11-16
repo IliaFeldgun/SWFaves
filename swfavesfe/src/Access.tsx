@@ -1,9 +1,4 @@
-require('dotenv').config();
-
-/*const apiURL = process.env.API_URL;
-const peoplePath = process.env.PEOPLE_PATH;
-const peopleURL = apiURL + peoplePath!;*/
-const peopleURL = "https://swapi.co/api/people"
+import { peopleURL } from "./config"
 
 export async function getAllPeople()
 {
@@ -21,7 +16,7 @@ export async function getAllPeople()
         
         if (jsonResult.next != null)
         {
-            getPeople(jsonResult.next)
+            await getPeople(jsonResult.next)
         }
 
         jsonResult.results.forEach((element: { name: string; }) => {
