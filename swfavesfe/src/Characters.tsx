@@ -37,16 +37,18 @@ class CharacterList extends React.PureComponent<{},ICharacterListState>{
     constructor (props: Readonly<{}>)
     {
         super (props);
-        this.state = {list: []}
+        this.state = {
+            list: []
+        }
     }
 
     componentDidMount() {
-        this.loadPeople()
+        getAllPeople().then((result) => 
+        {
+            this.setState({list: result})
+        })
     }
-
-    loadPeople() {
-        getAllPeople().then((result) => this.setState({list: result}) )
-    }
+    
     render() {
         const characterList = this.state.list.map(
             item => (
