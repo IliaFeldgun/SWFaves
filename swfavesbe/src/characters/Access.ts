@@ -1,27 +1,49 @@
-import { peopleURL } from "../config"
+import { peopleURL, pagePath } from "../config"
 import fetch from "node-fetch"
 
 export async function getAllPeople()
 {
-    var SWPeople: string[] = [];
+    let SWPeople: string[] = [];
+    let promises: Promise<any>[] = []
 
-    await getPeople(peopleURL)
+    let firstPeople = await getPeople(peopleURL)
+
+    pushPeople(SWPeople, firstPeople);
+
+    if (firstPeople.next != null)
+    {
+        let pages = Math.ceil(firstPeople.count / firstPeople.results.length)
+        
+        for (let page = 2; page <= pages; page++)
+        {
+            promises.push(getPeople(peopleURL,page));
+        }
+
+        await Promise.all(promises).then(responses => responses.forEach(element => pushPeople(SWPeople,element)))
+    }
 
     return SWPeople;
 
-    async function getPeople(URL : string)
+    async function getPeople(URL : string, page? : number)
     {
-        let peopleResult = await fetch(URL);
-        
-        let jsonResult = await peopleResult.json();
-        
-        if (jsonResult.next != null)
+        let peopleResult;
+
+        if (!page)
         {
-            getPeople(jsonResult.next)
+            peopleResult = await fetch(URL);
+        }
+        else 
+        {
+            peopleResult = await fetch(URL + pagePath + page)
         }
 
-        jsonResult.results.forEach((element: { name: string; }) => {
-                SWPeople.push(element.name);
-        })
+        return peopleResult.json();
+    }
+
+    async function pushPeople(array, peopleResult)
+    {
+        peopleResult.results.forEach((element: { name: string; }) => {
+            array.push(element.name);
+    })
     }
 }
