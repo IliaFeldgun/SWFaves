@@ -5,16 +5,26 @@ import { listenerCount } from 'cluster';
 
 interface ICharacterProps {
     name: string,
+    onChange: (ev: React.ChangeEvent<HTMLInputElement>) => void,
 }
 interface ICharacterState {
     checked: boolean,
 }
-
 class CharacterItem extends React.PureComponent<ICharacterProps, ICharacterState>{
     constructor(props: ICharacterProps)
     {
         super(props);
         this.state = { checked: false };
+        this.handleCheckChange = this.handleCheckChange.bind(this)
+    }
+
+    handleCheckChange(event: React.ChangeEvent<HTMLInputElement>)
+    {
+        this.setState( {
+            checked: event.target.checked
+        });
+
+        this.props.onChange(event);
     }
 
     render() {
@@ -23,7 +33,7 @@ class CharacterItem extends React.PureComponent<ICharacterProps, ICharacterState
                 <h1 className="character-name">
                 {this.props.name}
                 </h1>
-                <input className="character-checkbox" type="checkbox" value={this.props.name}/>
+                <input type="checkbox" value={this.props.name} checked={this.state.checked} onChange={this.handleCheckChange}/>
             </div>
         )
     }
@@ -35,6 +45,7 @@ interface ICharacterListProps {
 interface ICharacterListState {
     list: string[],
     filteredList: string[],
+    checkedList: string[],
 }
 class CharacterList extends React.PureComponent<ICharacterListProps,ICharacterListState>{
     constructor (props: ICharacterListProps)
@@ -43,9 +54,11 @@ class CharacterList extends React.PureComponent<ICharacterListProps,ICharacterLi
         this.state = {
             list: [],
             filteredList: [],
+            checkedList: [],
         }
 
         this.handleListChange = this.handleListChange.bind(this)
+        this.handleCheckChange = this.handleCheckChange.bind(this)
     }
 
     componentDidMount() {
@@ -60,11 +73,28 @@ class CharacterList extends React.PureComponent<ICharacterListProps,ICharacterLi
             filteredList: newList,
         })
     }
-    
+
+    handleCheckChange(event: React.ChangeEvent<HTMLInputElement>)
+    {
+        let newList = this.state.checkedList.slice();
+        
+        if (event.target.checked == true)
+        {
+            newList.push(event.target.value)
+        }
+        else
+        {
+            newList = newList.filter(element => {return element != event.target.value})
+        }
+
+        this.setState({
+            checkedList: newList,
+        })
+    }
     render() {
         const characterList = this.state.filteredList.map(
             item => (
-                <CharacterItem name={item}/>
+                <CharacterItem key={item} name={item} onChange={this.handleCheckChange}/>
             )
         )
         return (
@@ -75,6 +105,19 @@ class CharacterList extends React.PureComponent<ICharacterListProps,ICharacterLi
                 </div>
             </div>
         )
+    }
+}
+
+interface ICheckedCharacterListProps {
+    list: string[],
+}
+class CheckedCharacterList extends React.PureComponent<ICheckedCharacterListProps,{}>{
+    constructor (props: ICheckedCharacterListProps)
+    {
+        super (props);
+        this.state = {
+            list: [],
+        }
     }
 }
 
