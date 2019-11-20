@@ -1,0 +1,24 @@
+.character
+{
+    display: ruby;
+    padding-right: 20px;    
+}
+
+#suggestbutton
+{
+    position: relative;
+    display: block;
+    margin: auto;
+
+    font-size: x-large;
+}
+#aroundbutton
+{
+    z-index: 1000;
+    left:0;
+    right:0;
+    bottom:0;
+    position: fixed;
+    
+    background-color: #f0f0f0;
+}
