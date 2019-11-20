@@ -1,9 +1,9 @@
 import React from 'react';
 import './Characters.css';
-import { listenerCount } from 'cluster';
+import { getAllPeople, getRecommendedMovies } from './Access'
 //import { isTemplateElement } from '@babel/types';
 
-interface ICharacterProps {
+interface ICharacterProps { //TODO: change from string to a class
     name: string,
     onChange: (ev: React.ChangeEvent<HTMLInputElement>) => void,
 }
@@ -30,10 +30,12 @@ class CharacterItem extends React.PureComponent<ICharacterProps, ICharacterState
     render() {
         return (
             <div className="character">
-                <h1 className="character-name">
-                {this.props.name}
-                </h1>
+                <label>
                 <input type="checkbox" value={this.props.name} checked={this.state.checked} onChange={this.handleCheckChange}/>
+                <h2 className="character-name">
+                {this.props.name}
+                </h2>
+                </label>
             </div>
         )
     }
@@ -99,7 +101,9 @@ class CharacterList extends React.PureComponent<ICharacterListProps,ICharacterLi
         )
         return (
             <div id="characterlist">
+                <h3>Search here:</h3>
                 <SearchBox onChange={this.handleListChange}/>
+                <SuggestButton FavoritesList={this.state.checkedList}/>
                 <div id="characters">
                     {characterList}
                 </div>
@@ -108,7 +112,7 @@ class CharacterList extends React.PureComponent<ICharacterListProps,ICharacterLi
     }
 }
 
-interface ICheckedCharacterListProps {
+/*interface ICheckedCharacterListProps {
     list: string[],
 }
 class CheckedCharacterList extends React.PureComponent<ICheckedCharacterListProps,{}>{
@@ -119,7 +123,7 @@ class CheckedCharacterList extends React.PureComponent<ICheckedCharacterListProp
             list: [],
         }
     }
-}
+}*/
 
 interface ISearchBoxProps {
     onChange: (ev: React.ChangeEvent<HTMLInputElement>) => void,
@@ -128,8 +132,46 @@ class SearchBox extends React.PureComponent<ISearchBoxProps,{}>{
     
     render() {
         return (
-        <input className="search-box" type="text" 
-        onChange={this.props.onChange}></input>
+            <input className="search-box" type="text" 
+            onChange={this.props.onChange}></input>
+        )
+    }
+}
+
+interface ISuggestButtonProps{
+    FavoritesList: string[],
+}
+class SuggestButton extends React.PureComponent<ISuggestButtonProps,{}>{
+    constructor (props: ISuggestButtonProps)
+    {
+        super (props);
+
+        this.handleClick = this.handleClick.bind(this)
+    }
+    handleClick(ev: React.MouseEvent)
+    {
+        getRecommendedMovies(this.props.FavoritesList);
+    }
+    render() {
+        return(
+            <div id="aroundbutton">
+                <button id="suggestbutton" onClick={this.handleClick}>Suggest me some movies!</button>
+            </div>
+        )
+    }
+}
+
+class FavoriteCharacters extends React.PureComponent<{},{}>{
+    render() {
+        return (
+            <div id="favoritecharacters">
+                <h1>
+                    Welcome!
+
+                    Go ahead, pick you favorite Star Wars characters
+                </h1>
+                <CharacterList listSource={getAllPeople()}/>
+            </div>
         )
     }
 }
@@ -142,4 +184,4 @@ function characterFilter(list: string[], filter :string)
 
     return newlist;
 }
-export default CharacterList;
+export default FavoriteCharacters;
