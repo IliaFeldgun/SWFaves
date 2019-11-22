@@ -24,6 +24,13 @@ async function postFavorites(list: string[], userID: number)
     return response.json();
 }
 
+export async function getSuggestedMovies(userID: number)
+{
+    let filmResult = await fetch(peopleURL + "/" + userID);
+
+    return await filmResult.json();
+}
+
 async function moveToRecommendedMoviesPage(userID: number)
 {
 
@@ -31,9 +38,9 @@ async function moveToRecommendedMoviesPage(userID: number)
 
 export async function getRecommendedMovies(list: string[])
 {
-    let userID = 0
+    let userID = 101
     // userID = document.cookie.......
     await postFavorites(list,userID);
-
+    await
     moveToRecommendedMoviesPage(userID);
 }

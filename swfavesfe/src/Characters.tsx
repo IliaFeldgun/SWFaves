@@ -1,6 +1,7 @@
 import React from 'react';
 import './Characters.css';
 import { getAllPeople, getRecommendedMovies } from './Access'
+import { Link } from 'react-router-dom';
 //import { isTemplateElement } from '@babel/types';
 
 interface ICharacterProps { //TODO: change from string to a class
@@ -155,7 +156,9 @@ class SuggestButton extends React.PureComponent<ISuggestButtonProps,{}>{
     render() {
         return(
             <div id="aroundbutton">
-                <button id="suggestbutton" onClick={this.handleClick}>Suggest me some movies!</button>
+                <Link to="/suggestedfilms">
+                    <button id="suggestbutton" onClick={this.handleClick}>Suggest me some movies!</button>
+                </Link>
             </div>
         )
     }

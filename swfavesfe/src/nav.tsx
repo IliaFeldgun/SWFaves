@@ -12,7 +12,7 @@ import {
 
 import MasterPage from './MasterPage';
 import FavoriteCharacters from './Characters';
-import FilmSuggestions from './Films';
+import FilmSuggestions from './SuggestedFilms';
 
 class App extends Component {
   render() {
@@ -21,7 +21,7 @@ class App extends Component {
             <MasterPage />
             <Router>
                 <Route exact path="/" component={FavoriteCharacters}/>
-                {<Route exact path="/films" component={FilmSuggestions} />}
+                {<Route exact path="/suggestedfilms" component={FilmSuggestions} />}
             </Router>
         </div>
     );
