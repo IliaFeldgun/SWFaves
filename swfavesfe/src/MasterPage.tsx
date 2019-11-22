@@ -5,9 +5,11 @@ class Topbar extends React.Component {
     render() {
       return (
         <header className="TopBar">
-          <div id="Logo">
+          <a href="./">
+            <div id="Logo">
             <h1>SWFaves</h1>
-          </div>
+            </div>
+          </a>
         </header>
       );
     }

@@ -25,3 +25,19 @@ body
   margin-left: 10px;
   line-height: 15px;
 }
+
+#Logo:hover
+{
+    color: #acacac;
+}
+
+a:visited
+{
+  color: white;
+  text-decoration: none;
+}
+
+a
+{
+  text-decoration: none;
+}
