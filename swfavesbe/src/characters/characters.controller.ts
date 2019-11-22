@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body} from '@nestjs/common';
+import { Controller, Get, Post, Body, Param} from '@nestjs/common';
 import { CharactersService } from './characters.service'
 import { UserCharacters } from './UserCharacters.interface';
 
@@ -9,6 +9,11 @@ export class CharactersController {
     @Get()
     async getAllCharacters() {
         return this.charactersService.getAllCharacters();
+    }  
+    
+    @Get(':id')
+    async getUserFilmsByCharacters(@Param('id') id: number) {
+        return this.charactersService.getUserFilmsByCharacters(id);
     }
 
     @Post()
