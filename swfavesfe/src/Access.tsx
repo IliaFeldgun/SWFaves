@@ -19,6 +19,8 @@ async function postFavorites(list: string[], userID: number)
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify(parameters)
     })
+
+    return response.json();
 }
 
 async function moveToRecommendedMoviesPage(userID: number)
