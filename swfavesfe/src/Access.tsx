@@ -9,7 +9,16 @@ export async function getAllPeople()
 
 async function postFavorites(list: string[], userID: number)
 {
+    let parameters = {
+        characterList: list,
+        id: userID
+    }
 
+    var response = await fetch(peopleURL, {
+        method: 'Post',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(parameters)
+    })
 }
 
 async function moveToRecommendedMoviesPage(userID: number)
