@@ -1,17 +1,18 @@
-import { Controller, Get, Post} from '@nestjs/common';
+import { Controller, Get, Post, Body} from '@nestjs/common';
 import { CharactersService } from './characters.service'
+import { UserCharacters } from './UserCharacters.interface';
 
 @Controller('characters')
 export class CharactersController {
     constructor(private readonly charactersService: CharactersService) {}
     
-    @Post()
+    @Get()
     async getAllCharacters() {
         return this.charactersService.getAllCharacters();
     }
 
-    @Get()
-    async putUserCharacters() {
-        await this.charactersService.putUserCharacters({characters: ["Luke", "Sky"], _id: 600})
+    @Post()
+    async putUserCharacters(@Body() body: UserCharacters) {
+        await this.charactersService.putUserCharacters(body)
     }
 }

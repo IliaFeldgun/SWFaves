@@ -10,8 +10,9 @@ export async function getAllPeople()
 async function postFavorites(list: string[], userID: number)
 {
     let parameters = {
-        characterList: list,
-        id: userID
+        _id: userID,
+        characters: list
+        
     }
 
     var response = await fetch(peopleURL, {
