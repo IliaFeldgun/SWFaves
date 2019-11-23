@@ -1,0 +1,7 @@
+.env
+.git
+.vscode
+src
+test
+.gitignore
+node_modules
