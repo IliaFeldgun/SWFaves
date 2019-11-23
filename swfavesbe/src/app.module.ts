@@ -7,10 +7,13 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { UserCharacterSchema, UserFilmsSchema} from './schemas/favoritecharacters.schema';
 import { FilmsService } from './films/films.service';
 import { CookieMiddleware } from './cookie.middleware';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import { join } from 'path';
 require('dotenv').config()
 
 @Module({
-  imports: [MongooseModule.forRoot(process.env.MONGO), 
+  imports: [ServeStaticModule.forRoot({rootPath: join(__dirname, "..", 'client'),}),
+            MongooseModule.forRoot(process.env.MONGO), 
             MongooseModule.forFeature([{ name: 'UserFilms', schema: UserFilmsSchema }]), 
             MongooseModule.forFeature([{ name: 'UserCharacters', schema: UserCharacterSchema }])],
   controllers: [AppController, CharactersController],
