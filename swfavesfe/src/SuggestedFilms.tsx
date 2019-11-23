@@ -1,6 +1,6 @@
 import React from 'react';
 import './Films.css';
-import { getSuggestedMovies } from './Access'
+import { getSuggestedMovies, getQueryString } from './Access'
 
 interface IFilm {
     title: string,
@@ -80,7 +80,7 @@ class FilmSuggestions extends React.PureComponent<{},{}>{
             <div id="filmsuggestions">
                 <h1>Theses are the recommended films for 
                 </h1>
-                <FilmList listSource={getSuggestedMovies(0)}/>
+                <FilmList listSource={getSuggestedMovies(+getQueryString('id'))}/>
             </div>
         )
     }

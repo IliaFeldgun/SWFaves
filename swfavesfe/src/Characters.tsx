@@ -2,6 +2,8 @@ import React from 'react';
 import './Characters.css';
 import { getAllPeople, getRecommendedMovies } from './Access'
 import { Link } from 'react-router-dom';
+import { cookieName } from "./config"
+import * as cookiesjs from "cookies-js" 
 //import { isTemplateElement } from '@babel/types';
 
 interface ICharacterProps { //TODO: change from string to a class
@@ -113,19 +115,6 @@ class CharacterList extends React.PureComponent<ICharacterListProps,ICharacterLi
     }
 }
 
-/*interface ICheckedCharacterListProps {
-    list: string[],
-}
-class CheckedCharacterList extends React.PureComponent<ICheckedCharacterListProps,{}>{
-    constructor (props: ICheckedCharacterListProps)
-    {
-        super (props);
-        this.state = {
-            list: [],
-        }
-    }
-}*/
-
 interface ISearchBoxProps {
     onChange: (ev: React.ChangeEvent<HTMLInputElement>) => void,
 }
@@ -154,9 +143,10 @@ class SuggestButton extends React.PureComponent<ISuggestButtonProps,{}>{
         getRecommendedMovies(this.props.FavoritesList);
     }
     render() {
+        const linkPath = "/suggestedfilms?id=" + +cookiesjs.get(cookieName)
         return(
             <div id="aroundbutton">
-                <Link to="/suggestedfilms">
+                <Link to={linkPath}>
                     <button id="suggestbutton" onClick={this.handleClick}>Suggest me some movies!</button>
                 </Link>
             </div>

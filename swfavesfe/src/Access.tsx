@@ -1,4 +1,5 @@
-import { peopleURL } from "./config"
+import { peopleURL, cookieName } from "./config"
+import * as cookiesjs from "cookies-js" 
 
 export async function getAllPeople()
 {
@@ -31,16 +32,14 @@ export async function getSuggestedMovies(userID: number)
     return await filmResult.json();
 }
 
-async function moveToRecommendedMoviesPage(userID: number)
-{
-
-}
-
 export async function getRecommendedMovies(list: string[])
 {
-    let userID = 101
-    // userID = document.cookie.......
+    let userID = +cookiesjs.get(cookieName)
+    
     await postFavorites(list,userID);
-    await
-    moveToRecommendedMoviesPage(userID);
+}
+export function getQueryString(param : string) : string
+{
+    const urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get(param)!;
 }
