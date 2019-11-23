@@ -12,11 +12,7 @@ export class CharactersService {
     constructor(@InjectModel('UserCharacters') private readonly UserCharacterModel: Model<UserCharacters>, private readonly filmsService: FilmsService) {}
     async getAllCharacters()
     {
-        let people = await getAllSWAPIPeople()
-        let peopleNames : string[] = []
-        people.forEach((element) => peopleNames.push(element.name));
-
-        return peopleNames;
+        return getAllSWAPIPeople()
     }
 
     async putUserCharacters(toCreateDTO : UserCharactersDTO) 
