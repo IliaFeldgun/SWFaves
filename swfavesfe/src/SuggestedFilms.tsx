@@ -1,14 +1,8 @@
 import React from 'react';
 import './Films.css';
-import { getSuggestedMovies, getQueryString } from './Access'
+import { getSuggestedMovies, getQueryString } from './APIAccess'
+import { IFilm } from './interfaces/IFilm'
 
-interface IFilm {
-    title: string,
-    episode_id: number,
-    release_date: string,
-    score: number,
-    favoriteCharacters: string[],
-}
 
 interface IFilmItemProps {
     film: IFilm,

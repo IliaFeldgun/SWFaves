@@ -1,19 +1,19 @@
 import { peopleURL, cookieName } from "./config"
-import * as cookiesjs from "cookies-js" 
+import { ICharacter } from "./interfaces/ICharacter";
+import { IUserCharactersDTO } from "./interfaces/IUserCharactersDTO";
 
-export async function getAllPeople()
+export async function getAllPeople() : Promise<ICharacter[]>
 {
     let peopleResult = await fetch(peopleURL);
         
-    return await peopleResult.json();
+    return peopleResult.json();
 }
 
-async function postFavorites(list: string[], userID: number)
+export async function postFavorites(list: string[], userID: number)
 {
-    let parameters = {
+    let parameters: IUserCharactersDTO = {
         _id: userID,
         characters: list
-        
     }
 
     var response = await fetch(peopleURL, {
@@ -32,12 +32,6 @@ export async function getSuggestedMovies(userID: number)
     return await filmResult.json();
 }
 
-export async function getRecommendedMovies(list: string[])
-{
-    let userID = +cookiesjs.get(cookieName)
-    
-    await postFavorites(list,userID);
-}
 export function getQueryString(param : string) : string
 {
     const urlParams = new URLSearchParams(window.location.search);

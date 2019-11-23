@@ -1,20 +1,22 @@
 import React from 'react';
 import './Characters.css';
-import { getAllPeople, getRecommendedMovies } from './Access'
+import { getAllPeople, postFavorites } from './APIAccess'
 import { Link } from 'react-router-dom';
 import { cookieName } from "./config"
 import * as cookiesjs from "cookies-js" 
+import { ICharacter } from "./interfaces/ICharacter"
+import { Character } from "./basiccomponents/Character"
 //import { isTemplateElement } from '@babel/types';
 
-interface ICharacterProps { //TODO: change from string to a class
-    name: string,
+interface ICharacterItemProps {
+    character: ICharacter,
     onChange: (ev: React.ChangeEvent<HTMLInputElement>) => void,
 }
-interface ICharacterState {
+interface ICharacterItemState {
     checked: boolean,
 }
-class CharacterItem extends React.PureComponent<ICharacterProps, ICharacterState>{
-    constructor(props: ICharacterProps)
+class CharacterItem extends React.PureComponent<ICharacterItemProps, ICharacterItemState>{
+    constructor(props: ICharacterItemProps)
     {
         super(props);
         this.state = { checked: false };
@@ -34,10 +36,8 @@ class CharacterItem extends React.PureComponent<ICharacterProps, ICharacterState
         return (
             <div className="character">
                 <label>
-                <input type="checkbox" value={this.props.name} checked={this.state.checked} onChange={this.handleCheckChange}/>
-                <h2 className="character-name">
-                {this.props.name}
-                </h2>
+                    <input type="checkbox" value={this.props.character.name} checked={this.state.checked} onChange={this.handleCheckChange}/>
+                    <Character character={this.props.character}/>
                 </label>
             </div>
         )
@@ -45,11 +45,11 @@ class CharacterItem extends React.PureComponent<ICharacterProps, ICharacterState
 }
 
 interface ICharacterListProps {
-    listSource: Promise<string[]>,
+    listSource: Promise<ICharacter[]>,
 }
 interface ICharacterListState {
-    list: string[],
-    filteredList: string[],
+    list: ICharacter[],
+    filteredList: ICharacter[],
     checkedList: string[],
 }
 class CharacterList extends React.PureComponent<ICharacterListProps,ICharacterListState>{
@@ -99,7 +99,7 @@ class CharacterList extends React.PureComponent<ICharacterListProps,ICharacterLi
     render() {
         const characterList = this.state.filteredList.map(
             item => (
-                <CharacterItem key={item} name={item} onChange={this.handleCheckChange}/>
+                <CharacterItem key={item.name} character={item} onChange={this.handleCheckChange}/>
             )
         )
         return (
@@ -140,7 +140,7 @@ class SuggestButton extends React.PureComponent<ISuggestButtonProps,{}>{
     }
     handleClick(ev: React.MouseEvent)
     {
-        getRecommendedMovies(this.props.FavoritesList);
+        postFavorites(this.props.FavoritesList, +cookiesjs.get(cookieName));
     }
     render() {
         const linkPath = "/suggestedfilms?id=" + +cookiesjs.get(cookieName)
@@ -169,12 +169,13 @@ class FavoriteCharacters extends React.PureComponent<{},{}>{
     }
 }
 
-function characterFilter(list: string[], filter :string)
+function characterFilter(list: ICharacter[], filter: string) : ICharacter[]
 {
     let newlist = list.filter(element => {
-        return element.toLowerCase().indexOf(filter) != -1;
+        return element.name.toLowerCase().indexOf(filter) != -1;
     })
 
     return newlist;
 }
+
 export default FavoriteCharacters;
