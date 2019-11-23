@@ -119,7 +119,7 @@ class ShareButton extends React.PureComponent<{},{modalIsOpen: boolean}>{
             contentLabel="Share"
             >
                 <h1>Share this link:</h1>
-                <input type="url" value={document.URL} />
+                <input className="url-textbox" type="url" value={document.URL} />
             </Modal>
         </div>
       );
