@@ -4,7 +4,7 @@
     padding-right: 20px;    
 }
 
-#suggestbutton
+.main-button
 {
     position: relative;
     display: block;
@@ -12,7 +12,7 @@
 
     font-size: x-large;
 }
-#aroundbutton
+.around-button
 {
     z-index: 1000;
     left:0;
@@ -28,4 +28,9 @@
 {
     top: 60px;
     position: relative;
+}
+
+.url-textbox
+{
+    width: 400px;
 }

@@ -1,5 +1,5 @@
 import React from 'react';
-import './Characters.css';
+import './SWFaves.css';
 import { getAllPeople, postFavorites } from './APIAccess'
 import { Link } from 'react-router-dom';
 import { cookieName } from "./config"
@@ -145,9 +145,9 @@ class SuggestButton extends React.PureComponent<ISuggestButtonProps,{}>{
     render() {
         const linkPath = "/suggestedfilms?id=" + +cookiesjs.get(cookieName)
         return(
-            <div id="aroundbutton">
+            <div className="around-button">
                 <Link to={linkPath}>
-                    <button id="suggestbutton" onClick={this.handleClick}>Suggest me some movies!</button>
+                    <button className="main-button" id="suggestbutton" onClick={this.handleClick}>Suggest me some movies!</button>
                 </Link>
             </div>
         )

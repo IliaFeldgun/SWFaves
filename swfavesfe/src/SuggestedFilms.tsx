@@ -1,7 +1,8 @@
 import React from 'react';
-import './Films.css';
+import './SWFaves.css';
 import { getSuggestedMovies, getQueryString } from './APIAccess'
 import { IFilm } from './interfaces/IFilm'
+import Modal from 'react-modal';
 
 
 interface IFilmItemProps {
@@ -75,9 +76,65 @@ class FilmSuggestions extends React.PureComponent<{},{}>{
                 <h1>Theses are the recommended films for 
                 </h1>
                 <FilmList listSource={getSuggestedMovies(+getQueryString('id'))}/>
+                <ShareButton />
             </div>
         )
     }
 }
+
+class ShareButton extends React.PureComponent<{},{modalIsOpen: boolean}>{
+    constructor(props : {}) {
+        super(props);
+        
+        this.state = {
+            modalIsOpen: false
+        };
+        
+        this.openModal = this.openModal.bind(this);
+        this.afterOpenModal = this.afterOpenModal.bind(this);
+        this.closeModal = this.closeModal.bind(this);
+    }
+    
+    openModal() {
+        this.setState({modalIsOpen: true});
+    }
+    
+    afterOpenModal() {
+
+    }
+    
+    closeModal() {
+        this.setState({modalIsOpen: false});
+    }
+
+    render() {
+      return (
+        <div className="around-button">
+            <button className="main-button" onClick={this.openModal}>Share</button>
+            <Modal
+            isOpen={this.state.modalIsOpen}
+            onAfterOpen={this.afterOpenModal}
+            onRequestClose={this.closeModal}
+            style={customStyles}
+            contentLabel="Share"
+            >
+                <h1>Share this link:</h1>
+                <input type="url" value={document.URL} />
+            </Modal>
+        </div>
+      );
+    }
+  }
+
+  const customStyles = {
+    content : {
+      top                   : '40%',
+      left                  : '50%',
+      right                 : 'auto',
+      bottom                : 'auto',
+      marginRight           : '-50%',
+      transform             : 'translate(-50%, -50%)'
+    }
+  };
 
 export default FilmSuggestions;
