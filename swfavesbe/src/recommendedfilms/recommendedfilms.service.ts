@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { CharactersService } from '../characters/characters.service';
+import { CharactersService, ISWAPICharacter } from '../characters/characters.service';
 import { FilmsService } from '../films/films.service';
 
 @Injectable()
@@ -14,7 +14,7 @@ export class RecommendedFilmsService {
 
         let userCharacters = getCharactersFromName(await allCharacters, (await userCharactersNames).characters);
 
-        allFilms.forEach((film : {score: number, favoriteCharacters : string[], characters : string[]}) => {
+        allFilms.forEach((film : IFilmSuggestion) => {
             userCharacters.forEach((userCharacter) => {
                 
                 // Sets up a score property
@@ -44,9 +44,9 @@ export class RecommendedFilmsService {
 
         return allFilms;
 
-        function getCharactersFromName(allCharacters: {name: string, url: string}[], userCharacters : string[]) : {name: string, url: string}[]
+        function getCharactersFromName(allCharacters: ISWAPICharacter[], userCharacters : string[]) : ISWAPICharacter[]
         {
-            let characterURLs : {name: string, url: string}[] = []
+            let characterURLs : ISWAPICharacter[] = []
 
             userCharacters.forEach((userCharacter) => {
                 characterURLs.push(allCharacters.filter((character) => { return character.name == userCharacter; }).pop())
@@ -55,4 +55,10 @@ export class RecommendedFilmsService {
             return characterURLs;
         }
     }
+}
+
+interface IFilmSuggestion{
+    score: number,
+    favoriteCharacters: string[],
+    characters: string[],
 }

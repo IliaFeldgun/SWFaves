@@ -2,12 +2,13 @@ import { Injectable } from '@nestjs/common';
 import { getAllSWAPIPeople } from '../SWAPIAccess';
 import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
-import { UserCharacters } from './UserCharacters.interface';
+import { IUserCharacters } from './IUserCharacters';
 import { UserCharactersDTO } from './UserCharactersDTO'
+import { ISWAPICharacter } from './ISWAPICharacter'
 
 @Injectable()
 export class CharactersService {
-    constructor(@InjectModel('UserCharacters') private readonly UserCharacterModel: Model<UserCharacters>) {}
+    constructor(@InjectModel('UserCharacters') private readonly UserCharacterModel: Model<IUserCharacters>) {}
     async getAllCharacters()
     {
         return getAllSWAPIPeople()
@@ -24,3 +25,5 @@ export class CharactersService {
         return this.UserCharacterModel.findById(id).exec();
     }
 }
+
+export {ISWAPICharacter}
