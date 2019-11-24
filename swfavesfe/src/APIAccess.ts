@@ -31,9 +31,3 @@ export async function getSuggestedMovies(userID: number)
 
     return await filmResult.json();
 }
-
-export function getQueryString(param : string) : string
-{
-    const urlParams = new URLSearchParams(window.location.search);
-    return urlParams.get(param)!;
-}
