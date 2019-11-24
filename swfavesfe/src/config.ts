@@ -1,6 +1,7 @@
 const apiDomain = "./"
-const peoplePath = "api/characters"
-const suggestionsPath = "api/recommendedfilms"
-export const peopleURL = apiDomain + peoplePath;
-export const suggestionsURL = apiDomain + suggestionsPath;
+const peopleAPIPath = "api/characters"
+const suggestionsAPIPath = "api/recommendedfilms"
+export const peopleAPIURL = apiDomain + peopleAPIPath;
+export const suggestionsAPIURL = apiDomain + suggestionsAPIPath;
 export const cookieName = 'SWFavesUserID';
+export const suggestionsRoute = '/suggestedfilms'

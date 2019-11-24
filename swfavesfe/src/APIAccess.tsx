@@ -1,10 +1,10 @@
-import { peopleURL, suggestionsURL } from "./config"
+import { peopleAPIURL, suggestionsAPIURL } from "./config"
 import { ICharacter } from "./interfaces/ICharacter";
 import { IUserCharactersDTO } from "./interfaces/IUserCharactersDTO";
 
 export async function getAllPeople() : Promise<ICharacter[]>
 {
-    let peopleResult = await fetch(peopleURL);
+    let peopleResult = await fetch(peopleAPIURL);
         
     return peopleResult.json();
 }
@@ -16,7 +16,7 @@ export async function postFavorites(list: string[], userID: number)
         characters: list
     }
 
-    var response = await fetch(peopleURL, {
+    var response = await fetch(peopleAPIURL, {
         method: 'Post',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify(parameters)
@@ -27,7 +27,7 @@ export async function postFavorites(list: string[], userID: number)
 
 export async function getSuggestedMovies(userID: number)
 {
-    let filmResult = await fetch(suggestionsURL + "/" + userID);
+    let filmResult = await fetch(suggestionsAPIURL + "/" + userID);
 
     return await filmResult.json();
 }

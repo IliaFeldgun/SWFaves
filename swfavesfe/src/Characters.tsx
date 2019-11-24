@@ -2,7 +2,7 @@ import React from 'react';
 import './SWFaves.css';
 import { getAllPeople, postFavorites } from './APIAccess'
 import { Link } from 'react-router-dom';
-import { cookieName } from "./config"
+import { cookieName, suggestionsRoute } from "./config"
 import * as cookiesjs from "cookies-js" 
 import { ICharacter } from "./interfaces/ICharacter"
 import { Character } from "./basiccomponents/Character"
@@ -143,7 +143,7 @@ class SuggestButton extends React.PureComponent<ISuggestButtonProps,{}>{
         postFavorites(this.props.FavoritesList, +cookiesjs.get(cookieName));
     }
     render() {
-        const linkPath = "/suggestedfilms?id=" + +cookiesjs.get(cookieName)
+        const linkPath = suggestionsRoute + "?id=" + cookiesjs.get(cookieName)
         return(
             <div className="around-button">
                 <Link to={linkPath}>

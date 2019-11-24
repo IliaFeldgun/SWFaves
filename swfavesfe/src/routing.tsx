@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 import MasterPage from './MasterPage';
 import FavoriteCharacters from './Characters';
 import FilmSuggestions from './SuggestedFilms';
+import { suggestionsRoute } from "./config";
 
 class App extends Component {
   render() {
@@ -13,7 +14,7 @@ class App extends Component {
             <MasterPage />
             <Router>
                 <Route exact path="/" component={FavoriteCharacters}/>
-                {<Route exact path="/suggestedfilms" component={FilmSuggestions} />}
+                {<Route exact path={suggestionsRoute} component={FilmSuggestions} />}
             </Router>
         </div>
     );
