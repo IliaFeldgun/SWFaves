@@ -1,4 +1,4 @@
-import { peopleURL, cookieName } from "./config"
+import { peopleURL, suggestionsURL } from "./config"
 import { ICharacter } from "./interfaces/ICharacter";
 import { IUserCharactersDTO } from "./interfaces/IUserCharactersDTO";
 
@@ -27,7 +27,7 @@ export async function postFavorites(list: string[], userID: number)
 
 export async function getSuggestedMovies(userID: number)
 {
-    let filmResult = await fetch(peopleURL + "/" + userID);
+    let filmResult = await fetch(suggestionsURL + "/" + userID);
 
     return await filmResult.json();
 }
