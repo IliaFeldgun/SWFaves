@@ -1,6 +1,6 @@
 import { Controller, Get, Post, Body, Param} from '@nestjs/common';
 import { CharactersService } from './characters.service'
-import { UserCharacters } from './UserCharacters.interface';
+import { IUserCharacters } from './IUserCharacters';
 
 @Controller('characters')
 export class CharactersController {
@@ -12,7 +12,7 @@ export class CharactersController {
     }  
 
     @Post()
-    async putUserCharacters(@Body() body: UserCharacters) {
+    async putUserCharacters(@Body() body: IUserCharacters) {
         await this.charactersService.putUserCharacters(body)
     }
 }
