@@ -52,7 +52,7 @@ interface ICharacterListState {
     filteredList: ICharacter[],
     checkedList: string[],
 }
-class CharacterList extends React.PureComponent<ICharacterListProps,ICharacterListState>{
+export class CharacterList extends React.PureComponent<ICharacterListProps,ICharacterListState>{
     constructor (props: ICharacterListProps)
     {
         super (props);
@@ -136,7 +136,7 @@ class SearchBox extends React.PureComponent<ISearchBoxProps,{}>{
 interface ISuggestButtonProps{
     FavoritesList: string[],
 }
-class SuggestButton extends React.PureComponent<ISuggestButtonProps,{}>{
+export class SuggestButton extends React.PureComponent<ISuggestButtonProps,{}>{
     constructor (props: ISuggestButtonProps)
     {
         super (props);

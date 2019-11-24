@@ -39,7 +39,7 @@ interface IFilmListProps {
 interface IFilmListState {
     list: IFilm[],
 }
-class FilmList extends React.PureComponent<IFilmListProps,IFilmListState>{
+export class FilmList extends React.PureComponent<IFilmListProps,IFilmListState>{
     constructor (props: IFilmListProps)
     {
         super (props);
@@ -88,7 +88,7 @@ class FilmSuggestions extends React.PureComponent<{},{}>{
     }
 }
 
-class ShareButton extends React.PureComponent<{},{modalIsOpen: boolean}>{
+export class ShareButton extends React.PureComponent<{},{modalIsOpen: boolean}>{
     constructor(props : {}) {
         super(props);
         
