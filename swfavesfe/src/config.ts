@@ -1,4 +1,4 @@
-const apiDomain = "./"
+const apiDomain = "http://localhost:8080/"
 const peopleAPIPath = "api/characters"
 const suggestionsAPIPath = "api/recommendedfilms"
 export const peopleAPIURL = apiDomain + peopleAPIPath;
