@@ -97,11 +97,16 @@ class CharacterList extends React.PureComponent<ICharacterListProps,ICharacterLi
         })
     }
     render() {
-        const characterList = this.state.filteredList.map(
-            item => (
-                <CharacterItem key={item.name} character={item} onChange={this.handleCheckChange}/>
+        let characterList;
+
+        if (this.state.filteredList.map != undefined)
+        {
+            characterList = this.state.filteredList.map(
+                item => (
+                    <CharacterItem key={item.name} character={item} onChange={this.handleCheckChange}/>
+                )
             )
-        )
+        }
         return (
             <div id="characterlist">
                 <h3>Search here:</h3>
