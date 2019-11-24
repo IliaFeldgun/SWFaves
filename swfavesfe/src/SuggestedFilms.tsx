@@ -1,6 +1,6 @@
 import React from 'react';
 import './SWFaves.css';
-import { getSuggestedMovies, getQueryString } from './APIAccess'
+import { getSuggestedMovies} from './APIAccess'
 import { IFilm } from './interfaces/IFilm'
 import Modal from 'react-modal';
 
@@ -53,11 +53,17 @@ class FilmList extends React.PureComponent<IFilmListProps,IFilmListState>{
     }
 
     render() {
-        const filmList = this.state.list.map(
-            item => (
-                <FilmItem key={item.episode_id} film={item} />
+        let filmList;
+        
+        if (this.state.list.map != undefined)
+        {
+            filmList = this.state.list.map(
+                item => (
+                    <FilmItem key={item.episode_id} film={item} />
+                )
             )
-        )
+        }
+
         return (
             <div id="filmlist">
                 <div id="films">
@@ -136,5 +142,11 @@ class ShareButton extends React.PureComponent<{},{modalIsOpen: boolean}>{
       transform             : 'translate(-50%, -50%)'
     }
   };
+
+function getQueryString(param : string) : string
+{
+    const urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get(param)!;
+}
 
 export default FilmSuggestions;
