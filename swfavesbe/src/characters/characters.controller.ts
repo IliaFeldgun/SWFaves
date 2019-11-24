@@ -10,11 +10,6 @@ export class CharactersController {
     async getAllCharacters() {
         return this.charactersService.getAllCharacters();
     }  
-    
-    @Get(':id')
-    async getUserFilmsByCharacters(@Param('id') id: number) {
-        return this.charactersService.getUserFilmsByCharacters(id);
-    }
 
     @Post()
     async putUserCharacters(@Body() body: UserCharacters) {
