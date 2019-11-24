@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders a character 1`] = `
+<h2
+  className="character-name"
+>
+  Ilusha
+</h2>
+`;

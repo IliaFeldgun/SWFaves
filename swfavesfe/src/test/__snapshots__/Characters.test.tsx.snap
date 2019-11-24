@@ -1,0 +1,54 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders a character list 1`] = `
+<div
+  id="characterlist"
+>
+  <h3>
+    Search here:
+  </h3>
+  <input
+    className="search-box"
+    onChange={[Function]}
+    type="text"
+  />
+  <div
+    className="around-button"
+  >
+    <a
+      href="/suggestedfilms?id=undefined"
+      onClick={[Function]}
+    >
+      <button
+        className="main-button"
+        id="suggestbutton"
+        onClick={[Function]}
+      >
+        Suggest me some movies!
+      </button>
+    </a>
+  </div>
+  <div
+    id="characters"
+  />
+</div>
+`;
+
+exports[`renders a suggest button 1`] = `
+<div
+  className="around-button"
+>
+  <a
+    href="/suggestedfilms?id=undefined"
+    onClick={[Function]}
+  >
+    <button
+      className="main-button"
+      id="suggestbutton"
+      onClick={[Function]}
+    >
+      Suggest me some movies!
+    </button>
+  </a>
+</div>
+`;

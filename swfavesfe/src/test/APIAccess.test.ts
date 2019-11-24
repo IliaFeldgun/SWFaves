@@ -1,6 +1,5 @@
 import { getAllPeople, getSuggestedMovies } from "../APIAccess";
-import { ICharacter } from "../interfaces/ICharacter";
-const apiAccess = require('../APIAccess')
+
 jest.setTimeout(30000);
 
 test('Gets people', async () => {
@@ -14,6 +13,6 @@ test('Gets movies', async () => {
     let userID = 609074512;
     expect(await getSuggestedMovies(userID)).toHaveLength(7);
     let fakeUserID = 1;
-    expect(await getSuggestedMovies(fakeUserID)).toStrictEqual({"message": "Internal server error", "statusCode": 500})
+    expect(await getSuggestedMovies(fakeUserID)).toHaveLength(0);
 });
 
