@@ -16,13 +16,13 @@ async function getAllSWAPIFromURL(path : string)
     let SWAPIResults: any[] = [];
     let promises: Promise<any>[] = []
 
-    let firstPeople = await getPage(path)
+    let firstPage = await getPage(path)
 
-    pushPage(SWAPIResults, firstPeople.results);
+    pushPage(SWAPIResults, firstPage.results);
 
-    if (firstPeople.next != null)
+    if (firstPage.next != null)
     {
-        let pages = Math.ceil(firstPeople.count / firstPeople.results.length)
+        let pages = Math.ceil(firstPage.count / firstPage.results.length)
         
         for (let page = 2; page <= pages; page++)
         {
@@ -33,25 +33,25 @@ async function getAllSWAPIFromURL(path : string)
     }
 
     return SWAPIResults;
+}
 
-    async function pushPage(SWAPIResults : Array<any>, pageResults : Array<any>)
+async function pushPage(SWAPIResults : Array<any>, pageResults : Array<any>)
+{
+    pageResults.forEach((element) => {SWAPIResults.push(element)});
+}
+
+async function getPage(URL : string, page? : number)
+{
+    let peopleResult;
+
+    if (!page)
     {
-        pageResults.forEach((element) => {SWAPIResults.push(element)});
+        peopleResult = await fetch(URL);
+    }
+    else 
+    {
+        peopleResult = await fetch(URL + pagePath + page)
     }
 
-    async function getPage(URL : string, page? : number)
-    {
-        let peopleResult;
-
-        if (!page)
-        {
-            peopleResult = await fetch(URL);
-        }
-        else 
-        {
-            peopleResult = await fetch(URL + pagePath + page)
-        }
-
-        return peopleResult.json();
-    }
+    return peopleResult.json();
 }
