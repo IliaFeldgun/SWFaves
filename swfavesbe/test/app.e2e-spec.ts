@@ -17,7 +17,22 @@ describe('AppController (e2e)', () => {
   it('/ (GET)', () => {
     return request(app.getHttpServer())
       .get('/')
-      .expect(200)
-      .expect('Hello World!');
+      .expect(200);
+  });
+  it('/characters (GET)', () => {
+    return request(app.getHttpServer())
+      .get('/characters')
+      .expect(200);
+  });
+  it('/characters (POST)', () => {
+    return request(app.getHttpServer())
+      .post('/characters').send({_id: 1234567, characters: ["Sky", "Walker"]})
+      .expect(201);
+  });
+  it('/suggestedfilms/userID (GET)', () => {
+    let userID = 609074512;
+    return request(app.getHttpServer())
+      .get('/suggestedfilms/' + userID)
+      .expect(200);
   });
 });

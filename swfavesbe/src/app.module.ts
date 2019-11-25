@@ -7,7 +7,7 @@ import { FilmsService } from './films/films.service';
 import { CookieMiddleware } from './cookie.middleware';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
-import { RecommendedfilmsController } from './recommendedfilms/recommendedfilms.controller';
+import { RecommendedFilmsController } from './recommendedfilms/recommendedfilms.controller';
 import { RecommendedFilmsService } from './recommendedfilms/recommendedfilms.service';
 require('dotenv').config()
 
@@ -15,7 +15,7 @@ require('dotenv').config()
   imports: [ServeStaticModule.forRoot({rootPath: join(__dirname, "..", 'client'),}),
             MongooseModule.forRoot(process.env.MONGO), 
             MongooseModule.forFeature([{ name: 'UserCharacters', schema: UserCharacterSchema }])],
-  controllers: [CharactersController, RecommendedfilmsController],
+  controllers: [CharactersController, RecommendedFilmsController],
   providers: [CharactersService, FilmsService, RecommendedFilmsService],
 })
 export class AppModule {

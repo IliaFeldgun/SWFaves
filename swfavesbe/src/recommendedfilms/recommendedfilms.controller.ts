@@ -2,7 +2,7 @@ import { Controller, Get, Param } from '@nestjs/common';
 import { RecommendedFilmsService } from './recommendedfilms.service';
 
 @Controller('recommendedfilms')
-export class RecommendedfilmsController {
+export class RecommendedFilmsController {
     constructor(private readonly recommendedFilmsService: RecommendedFilmsService){}
     
     @Get(':id')

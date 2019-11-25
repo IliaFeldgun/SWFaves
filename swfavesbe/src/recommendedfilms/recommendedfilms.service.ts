@@ -8,6 +8,11 @@ export class RecommendedFilmsService {
 
     async getUserFilmsByCharacters(id : number)
     {
+        if (id == null || id == undefined)
+        {
+            return [];
+        }
+
         let userCharactersNames = this.characterService.getUserCharacters(id);
         let allCharacters = this.characterService.getAllCharacters();
         let allFilms = await this.filmsService.getAllFilms();
